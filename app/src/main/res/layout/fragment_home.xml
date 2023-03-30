@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:src="@tools:sample/avatars" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="347dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins_thin"
+        android:inputType="textPersonName"
+        android:text="@string/type_recipe"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="89dp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="395dp"
+        android:layout_height="195dp"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@color/gradient_card"
+        app:cardCornerRadius="10dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="148dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/paytone_one"
+        android:text="@string/popular_categories"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="353dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="81dp"
+        android:layout_height="21dp"
+        android:clickable="true"
+        android:text="@string/see_all"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="362dp" />
+
+    <LinearLayout
+        android:layout_width="392dp"
+        android:layout_height="94dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="389dp">
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

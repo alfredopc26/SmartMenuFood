@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SmartMenuFood</string>
+    <string name="title_home">Home</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_smart_menu">Smart Menu</string>
+    <string name="title_favorite">Favoritos</string>
+    <string name="title_cart">Pedir</string>
+    <string name="type_recipe">Escriba una receta</string>
+    <string name="popular_categories">Categorías populares</string>
+    <string name="see_all">Ver todos</string>
+    <string name="demo_dish">Plato Demo</string>
+</resources>
