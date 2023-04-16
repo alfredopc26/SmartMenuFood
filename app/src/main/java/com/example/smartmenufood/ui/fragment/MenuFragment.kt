@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartmenufood.databinding.FragmentMenuBinding
-import com.example.smartmenufood.ui.menu.MenuViewModel
+import com.example.smartmenufood.ui.models.MenuViewModel
 
 class MenuFragment : Fragment() {
 
@@ -23,14 +23,14 @@ class MenuFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
+        val menuView =
             ViewModelProvider(this).get(MenuViewModel::class.java)
 
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
+        menuView.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

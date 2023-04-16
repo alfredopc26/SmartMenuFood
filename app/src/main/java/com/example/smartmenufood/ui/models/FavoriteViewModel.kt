@@ -1,13 +1,13 @@
-package com.example.smartmenufood.ui.menu
+package com.example.smartmenufood.ui.models
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MenuViewModel : ViewModel() {
+class FavoriteViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
+        value = "This is Favorite Fragment"
     }
     val text: LiveData<String> = _text
 }
