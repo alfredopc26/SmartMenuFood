@@ -8,5 +8,10 @@
     <string name="type_recipe">Escriba una receta</string>
     <string name="popular_categories">Categorías populares</string>
     <string name="see_all">Ver todos</string>
-    <string name="demo_dish">Plato Demo</string>
+    <string name="hello">Hola</string>
+    <string name="user_name">username</string>
+    <string name="expertRecet">Recetas de experto</string>
+    <string name="category">categorias</string>
+    <string name="recomendRecet">Recetas Recomendadas</string>
+    <string name="authorusername">authorusername</string>
 </resources>
