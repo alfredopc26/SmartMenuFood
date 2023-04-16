@@ -5,16 +5,14 @@ plugins {
 
 android {
     namespace 'com.example.smartmenufood'
-    compileSdk 34
-    compileSdkPreview = "UpsideDownCake"
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.smartmenufood"
         minSdk 31
-        targetSdk 34
+        targetSdk 33
         versionCode 1
         versionName "1.0"
-        targetSdkPreview = "UpsideDownCake"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +47,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.sqlite:sqlite-ktx:2.0.0'
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx'
     implementation 'com.google.code.gson:gson:2.8.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
