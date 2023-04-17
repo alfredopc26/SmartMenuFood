@@ -9,4 +9,10 @@
     <color name="primary_sm">#F56606</color>
     <color name="variantsm">#FAF9FF</color>
     <color name="gradient_card">#B0F49836</color>
+    <color name="color_background">#F3F4F8</color>
+    <color name="black_gradient1">#80000000</color>
+    <color name="black_gradient2">#00000000</color>
+    <color name="rosybrown">#EE4760</color>
+    <color name="gray">#11000000</color>
+    <color name="yellow">#F2B705</color>
 </resources>

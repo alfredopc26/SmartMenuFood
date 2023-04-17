@@ -1,7 +1,9 @@
-package com.example.smartmenufood.ui.home
+package com.example.smartmenufood.data.models
+
+import com.google.gson.annotations.SerializedName
 
 
-    data  class Recette (
+data  class Recette (
     @SerializedName("_id")
     val  id :  String ,
     @SerializedName("name")

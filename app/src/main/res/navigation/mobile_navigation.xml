@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.smartmenufood.ui.fragment.HomeFragment"
+        android:name="com.example.smartmenufood.ui.main.fragment.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_menu"
-        android:name="com.example.smartmenufood.ui.fragment.MenuFragment"
+        android:name="com.example.smartmenufood.ui.main.fragment.MenuFragment"
         android:label="@string/title_menu"
         tools:layout="@layout/fragment_menu" />
 
     <fragment
         android:id="@+id/navigation_smartmenu"
-        android:name="com.example.smartmenufood.ui.fragment.SmartMenuFragment"
+        android:name="com.example.smartmenufood.ui.main.fragment.SmartMenuFragment"
         android:label="@string/title_smart_menu"
         tools:layout="@layout/fragment_smart_menu" />
 
     <fragment
         android:id="@+id/navigation_favorite"
-        android:name="com.example.smartmenufood.ui.fragment.FavoriteFragment"
+        android:name="com.example.smartmenufood.ui.main.fragment.FavoriteFragment"
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
 

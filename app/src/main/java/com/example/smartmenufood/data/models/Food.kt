@@ -1,4 +1,4 @@
-package devsec.app.easykitchen.data.models
+package com.example.smartmenufood.data.models
 
 import com.google.gson.annotations.SerializedName
 
