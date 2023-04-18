@@ -2,6 +2,7 @@
     <string name="app_name">SmartMenuFood</string>
     <string name="title_home">Home</string>
     <string name="title_menu">Menu</string>
+    <string name="title_food">Recetas</string>
     <string name="title_smart_menu">Smart Menu</string>
     <string name="title_favorite">Favoritos</string>
     <string name="title_cart">Pedir</string>
@@ -40,4 +41,22 @@
     <string name="descRecetteInput">Especifica una descripción para tu receta</string>
     <string name="modifier">Modificar</string>
     <string name="commentTitleEdit">Editar comentario</string>
+    <string name="TitleGuide">Bienvenidos a SmartMenu</string>
+    <string name="DescGuide">Este es un recorrido por la aplicación</string>
+    <string name="nextBtn">Siguiente</string>
+    <string name="SkipBtn">Saltar</string>
+    <string name="about">Sobre la app</string>
+    <string name="about_description">Selecciona tus ingredientes y busca que te proponen los restaurantes</string>
+    <string name="loading_text">Cargando</string>
+    <string name="search_food">Buscar Receta</string>
+    <string name="ingredient_name">Nombre del Ingrediente</string>
+    <string name="expertRecette">Receta de un Experto</string>
+    <string name="recomnandedRecette">Receta recomendada</string>
+    <string name="search">Buscar</string>
+    <string name="food_toobar_title">food_toobar_title</string>
+    <string name="no_ingredients_in_basket">No hay ingredientes en la canasta</string>
+    <string name="ingredients_basket">Lista de ingredientes</string>
+    <string name="clear_cart">Limpiart Carrito</string>
+    <string name="no_ingredients_found">No se encontró el ingrediente</string>
+    <string name="add_ingredients">Agregar ingrediente</string>
 </resources>

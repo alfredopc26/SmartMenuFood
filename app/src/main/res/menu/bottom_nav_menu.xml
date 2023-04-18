@@ -8,8 +8,8 @@
 
     <item
         android:id="@+id/navigation_menu"
-        android:icon="@drawable/menu"
-        android:title="@string/title_menu" />
+        android:icon="@drawable/food_icon"
+        android:title="@string/title_food" />
 
     <item
         android:id="@+id/navigation_smartmenu"

@@ -76,6 +76,9 @@ interface RestApiService {
         @Part myFile: MultipartBody.Part
     ): Call<ResponseBody>
 
+
+    @GET("recettes")
+    fun getRecette(): Call<List<Recette>>
     @Headers("Content-Type:application/json")
     @GET("recettes/{id}")
     fun getRecetteById(@Path("id") id: String): Call<Recette>
@@ -105,7 +108,7 @@ class RetrofitInstance {
 
 //        const val BASE_URL: String = "http://10.0.2.2:3000/api/"
 //        const val BASE_URL: String = "http://192.168.1.14:3000/api/"
-        const val BASE_URL: String = "https://8e468e9d-d2db-464d-a954-92deff7d7a29.mock.pstmn.io/"
+        const val BASE_URL: String = "https://easykitchenbackend.onrender.com/api/"
 
         val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY

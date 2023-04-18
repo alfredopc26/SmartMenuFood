@@ -69,9 +69,6 @@ class MySingleRecipeActivity : AppCompatActivity() {
         initRecette()
         initComments()
 
-
-
-
         val layoutManagerIngredient = LinearLayoutManager(this)
 
         recyclerViewIngredient = findViewById(R.id.ingredientListRecetteView)

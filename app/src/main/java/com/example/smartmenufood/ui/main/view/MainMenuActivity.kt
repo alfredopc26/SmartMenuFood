@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.example.smartmenufood.R
 import com.example.smartmenufood.databinding.ActivityMainBinding
-import com.example.smartmenufood.ui.main.fragment.FavoriteFragment
-import com.example.smartmenufood.ui.main.fragment.HomeFragment
-import com.example.smartmenufood.ui.main.fragment.MenuFragment
-import com.example.smartmenufood.ui.main.fragment.SmartMenuFragment
+import com.example.smartmenufood.ui.main.fragment.*
+import com.example.smartmenufood.utils.services.LoadingDialog
 
 
 class MainMenuActivity : AppCompatActivity() {
@@ -23,26 +21,26 @@ class MainMenuActivity : AppCompatActivity() {
     lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
 
+    private lateinit var loadingDialog: LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loadingDialog = LoadingDialog (this)
 
         // Drawer
         drawerLayout = findViewById(R.id.drawerLayout)
 
-
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
         // bottom navigation bar
+        supportFragmentManager.beginTransaction().replace(R.id.fragments_container, HomeFragment())
+            .commit()
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_home -> replaceFragment(HomeFragment())
-                R.id.navigation_menu -> replaceFragment(MenuFragment())
-                R.id.navigation_smartmenu -> replaceFragment(SmartMenuFragment())
+                R.id.navigation_menu -> replaceFragment(FoodFragment())
+                R.id.navigation_smartmenu -> replaceFragment(BasketFragment())
                 R.id.navigation_favorite -> replaceFragment(FavoriteFragment())
             }
             true
