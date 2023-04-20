@@ -55,9 +55,9 @@ class IngredientsCartActivity : AppCompatActivity() {
             }
         })
 
-         toolbar = findViewById(R.id.ingredientsToolbar)
+        toolbar = findViewById(R.id.ingredientsToolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
 
 
 
@@ -74,9 +74,9 @@ class IngredientsCartActivity : AppCompatActivity() {
         cartItem.setOnMenuItemClickListener { item ->
             if (Cart.cart.size >0){
             AlertDialog.Builder(this)
-                .setTitle("Clear Cart")
-                .setMessage("Are you sure you want to clear your cart?")
-                .setPositiveButton("Yes") { dialog, which ->
+                .setTitle("Limpiar Canasta")
+                .setMessage("¿Estas seguro de borrar tu canasta?")
+                .setPositiveButton("Si") { dialog, which ->
                     Cart.cart.clear()
                     adapter.notifyDataSetChanged()
                     noIngredientsLayout.visibility = LinearLayout.VISIBLE
@@ -88,8 +88,35 @@ class IngredientsCartActivity : AppCompatActivity() {
                 .show()}
             else{
                 AlertDialog.Builder(this)
-                    .setTitle("Empty Cart")
-                    .setMessage("Your cart is empty")
+                    .setTitle("Canasta vacía")
+                    .setMessage("Tu canasta esta vacía")
+                    .setPositiveButton("Ok") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+            true
+
+        }
+
+        val processIngredientsItem = menu!!.findItem(R.id.process_ingredients)
+        processIngredientsItem.setOnMenuItemClickListener { item ->
+            if (Cart.cart.size >0){
+                processIngredientsItem.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.process_ingredients -> {
+                            val intent = Intent(this, FoodByIngredientsActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+            }
+            else{
+                AlertDialog.Builder(this)
+                    .setTitle("Canasta vacía")
+                    .setMessage("No hay items que procesar")
                     .setPositiveButton("Ok") { dialog, which ->
                         dialog.dismiss()
                     }

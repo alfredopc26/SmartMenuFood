@@ -84,25 +84,25 @@ class FoodByIngredientsActivity : AppCompatActivity()/*, SearchView.OnQueryTextL
         expertButton=findViewById(R.id.expertButton)
         userButton=findViewById(R.id.recetteUserButton)
 
-        expertButton.setBackgroundColor(getResources().getColor(R.color.rosybrown))
+        expertButton.setBackgroundColor(getResources().getColor(R.color.primary_sm))
         expertButton.setTextColor(getResources().getColor(R.color.white))
 
         expertButton.setOnClickListener {
             replaceFragment(ExpertRecipeFragment())
 
-                expertButton.setBackgroundColor(getResources().getColor(R.color.rosybrown))
+                expertButton.setBackgroundColor(getResources().getColor(R.color.primary_sm))
                 expertButton.setTextColor(getResources().getColor(R.color.white))
                 userButton.setBackgroundColor(getResources().getColor(R.color.white))
-                userButton.setTextColor(getResources().getColor(R.color.rosybrown))
+                userButton.setTextColor(getResources().getColor(R.color.primary_sm))
 
 
         }
         userButton.setOnClickListener {
             replaceFragment(RecetteUserFragment())
-                userButton.setBackgroundColor(getResources().getColor(R.color.rosybrown))
+                userButton.setBackgroundColor(getResources().getColor(R.color.primary_sm))
                 userButton.setTextColor(getResources().getColor(R.color.white))
                 expertButton.setBackgroundColor(getResources().getColor(R.color.white))
-                expertButton.setTextColor(getResources().getColor(R.color.rosybrown))
+                expertButton.setTextColor(getResources().getColor(R.color.primary_sm))
 
 
         }

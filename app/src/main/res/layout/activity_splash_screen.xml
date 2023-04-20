@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rosybrown"
+    android:background="@color/primary_sm"
 
     tools:context=".ui.main.view.SplashScreenActivity">
 
@@ -17,5 +17,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/asset_2" />
+        app:srcCompat="@drawable/frame_55" />
 </androidx.constraintlayout.widget.ConstraintLayout>

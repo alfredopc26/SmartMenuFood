@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/process_ingredients"
+        android:icon="@drawable/food_icon"
+        android:title="@string/process_ingredients"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/clear_cart"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/clear_cart"

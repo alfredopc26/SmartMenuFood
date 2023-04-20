@@ -86,31 +86,6 @@ class BasketFragment : Fragment() {
         })
 
         toolbar = view.findViewById(R.id.ingredientsBasketToolbar)
-        val searchFoodButton = view.findViewById<FloatingActionButton>(R.id.searchFoodFloatingActionButton)
-        searchFoodButton.setOnClickListener {
-            if (Cart.cart.size != 0) {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Are you sure?")
-                    .setMessage("You want to go for recipes with those ingredients?")
-                    .setPositiveButton("Yes") { dialog, which ->
-                        val intent = Intent(context, FoodByIngredientsActivity::class.java)
-                        startActivity(intent)
-                    }
-                    .setNegativeButton("No") { dialog, which ->
-                        dialog.dismiss()
-                    }
-                    .show()
-
-            } else {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("No ingredients selected")
-                    .setMessage("You didn't add ingredients to your basket yet")
-                    .setPositiveButton("Ok") { dialog, which ->
-                    }
-                    .show()
-            }
-            true
-        }
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.ingredients_cart -> {

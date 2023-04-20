@@ -67,6 +67,22 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".ui.main.view.IngredientsCartActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SmartMenuFood">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.main.view.FoodByIngredientsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SmartMenuFood">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.main.view.MainMenuActivity"
             android:exported="true"
             android:theme="@style/Theme.SmartMenuFood">

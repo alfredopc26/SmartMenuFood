@@ -58,5 +58,7 @@
     <string name="ingredients_basket">Lista de ingredientes</string>
     <string name="clear_cart">Limpiart Carrito</string>
     <string name="no_ingredients_found">No se encontró el ingrediente</string>
-    <string name="add_ingredients">Agregar ingrediente</string>
+    <string name="add_ingredients">Agregar ingredientes</string>
+    <string name="create_reccete">Crear recetas</string>
+    <string name="process_ingredients">Procesar ingredientes</string>
 </resources>
