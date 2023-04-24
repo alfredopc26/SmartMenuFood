@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.smartmenufood'
+    namespace 'com.example.facilRecetas'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.smartmenufood"
+        applicationId "com.example.facilRecetas"
         minSdk 31
         targetSdk 33
         versionCode 1
@@ -57,4 +57,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
 }

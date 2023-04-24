@@ -13,12 +13,12 @@
 
     <item
         android:id="@+id/navigation_smartmenu"
-        android:icon="@drawable/smart_menu"
+        android:icon="@drawable/basket_50"
         android:title="@string/title_smart_menu" />
 
     <item
         android:id="@+id/navigation_favorite"
-        android:icon="@drawable/favorite_filled"
+        android:icon="@drawable/favorite_50"
         android:title="@string/title_favorite" />
 
 </menu>

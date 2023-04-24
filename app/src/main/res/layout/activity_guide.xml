@@ -30,9 +30,10 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainer"
-            android:name="com.example.smartmenufood.ui.main.fragment.GuidePageOneFragment"
+            android:name="com.example.facilRecetas.ui.main.fragment.GuidePageOneFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_guide_page_one" />
 
 
     </FrameLayout>
