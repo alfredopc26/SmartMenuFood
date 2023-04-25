@@ -5,9 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
-import androidx.appcompat.widget.AppCompatButton
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.facilRecetas.R
 import com.example.facilRecetas.data.models.Recette
@@ -26,11 +23,8 @@ class BlogAdapter(private var blogList: ArrayList<Recette>):RecyclerView.Adapter
     inner class BlogViewHolder(itemView: View ,listener: OnItemClickListener):RecyclerView.ViewHolder(itemView){
         val blog_author = itemView.findViewById<TextView>(R.id.blogAuthor)
         val blog_author_image = itemView.findViewById<ImageView>(R.id.blogAuthorImage)
-        val blog_upvote = itemView.findViewById<AppCompatButton>(R.id.upvote)
         val blog_duration = itemView.findViewById<TextView>(R.id.blog_time)
         val blog_title = itemView.findViewById<TextView>(R.id.blog_titre)
-//        val blog_image = itemView.findViewById<ImageView>(R.id.)
-
 
         init {
             itemView.setOnClickListener {
@@ -57,7 +51,6 @@ class BlogAdapter(private var blogList: ArrayList<Recette>):RecyclerView.Adapter
         val b=blog.dislikes
         likeDiff = ( a.toFloat()  - b.toFloat()).toInt()
         holder.blog_author.text = blog.username
-        holder.blog_upvote.text = likeDiff.toString()
         holder.blog_duration.text = blog.duration.toString()
         holder.blog_title.text = blog.name
     }

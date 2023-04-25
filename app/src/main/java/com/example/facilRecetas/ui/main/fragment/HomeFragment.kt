@@ -148,13 +148,13 @@ class HomeFragment : Fragment() {
                     var foods = response.body()
                     for (food in foods!!) {
                         if (dailyFood()=="Desayunos"){
-                            if (food.category=="Breakfast"){ foodList.add(food)}
+                            if (food.category=="Desayunos"){ foodList.add(food)}
                         }
                         if (dailyFood()=="Almuerzos"){
-                            if (food.category=="Lamb" || food.category=="Pasta" || food.category=="Beef"){ foodList.add(food)}
+                            if (food.category=="Almuerzos" || food.category=="Sancochos" || food.category=="Arroces"){ foodList.add(food)}
                         }
                         if (dailyFood()=="Cenas"){
-                            if (food.category=="Side" ||food.category=="Starter"){ foodList.add(food)}
+                            if (food.category=="Cenas"){ foodList.add(food)}
                         }
                     }
                     val randomFood = foodList.random()
