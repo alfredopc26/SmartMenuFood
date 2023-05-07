@@ -1,4 +1,7 @@
 package com.example.facilRecetas.ui.main.fragment
 
-class CartFragment {
+import androidx.fragment.app.Fragment
+
+class CartFragment: Fragment()  {
+
 }

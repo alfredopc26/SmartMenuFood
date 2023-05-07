@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.ImageView
 import com.example.facilRecetas.R
+import com.example.facilRecetas.UpdateDataActivity
 
 @Suppress("DEPRECATION")
 @SuppressLint("CustomSplashScreen")
@@ -24,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         handler = Handler()
         handler.postDelayed({
-            val intent = Intent(this, MainMenuActivity::class.java)
+            val intent = Intent(this, UpdateDataActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

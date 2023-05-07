@@ -92,6 +92,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name="UpdateDataActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SmartMenuFood">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.main.view.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SmartMenuFood">

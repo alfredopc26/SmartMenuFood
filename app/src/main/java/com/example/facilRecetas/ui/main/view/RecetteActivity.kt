@@ -123,7 +123,7 @@ class RecetteActivity : AppCompatActivity() {
             ) {
                 val recette = response.body()
 
-                recetteTitre.text = response.body()!!.name
+                    recetteTitre.text = response.body()!!.name
                 timeTxt.text = response.body()!!.duration.toString()
                 peopleTxt.text = response.body()!!.person.toString()
                 difficultyTxt.text = response.body()!!.difficulty
