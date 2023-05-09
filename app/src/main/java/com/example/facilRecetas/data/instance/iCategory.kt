@@ -3,7 +3,7 @@ package com.example.facilRecetas.data.instance
 import android.content.Context
 import androidx.room.Room
 import com.example.facilRecetas.persistence.CategoryDao
-import com.example.facilRecetas.persistence.CategoryDatabase
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 
 
 class ICategory {
@@ -13,9 +13,9 @@ class ICategory {
 
         private fun iCategory(context: Context?) {
             val appContext = context?.applicationContext
-            val database: CategoryDatabase? =
+            val database: DatabaseFacilRecetas? =
                 appContext?.let {
-                    Room.databaseBuilder(it, CategoryDatabase::class.java, "category")
+                    Room.databaseBuilder(it, DatabaseFacilRecetas::class.java, "category")
                         .allowMainThreadQueries().build()
                 };
             if (database != null) {

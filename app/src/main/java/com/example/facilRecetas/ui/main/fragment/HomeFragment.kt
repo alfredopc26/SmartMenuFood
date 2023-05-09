@@ -1,6 +1,5 @@
 package com.example.facilRecetas.ui.main.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +17,7 @@ import com.example.facilRecetas.ui.main.view.CategoryRecipesFilterActivity
 import com.example.facilRecetas.data.models.Category
 import com.example.facilRecetas.data.models.Food
 import com.example.facilRecetas.data.models.Recette
-import com.example.facilRecetas.persistence.CategoryDatabase
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.ui.main.adapter.BlogAdapter
 import com.example.facilRecetas.ui.main.adapter.CategoryAdapter
 import com.example.facilRecetas.ui.main.adapter.FoodAdapter
@@ -29,7 +28,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalTime
-import java.util.logging.Logger
 
 private lateinit var categoryRecyclerView: RecyclerView
 private lateinit var categoryAdapter: CategoryAdapter
@@ -47,7 +45,7 @@ class HomeFragment : Fragment() {
     private lateinit var categoryList: ArrayList<Category>
     private lateinit var foodList: ArrayList<Food>
     private lateinit var dCategory: Category
-    private lateinit var db: CategoryDatabase
+    private lateinit var db: DatabaseFacilRecetas
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -119,7 +117,7 @@ class HomeFragment : Fragment() {
 
     private fun initCategoryList() {
         categoryList = ArrayList()
-        val categories = CategoryDatabase.getInstance(requireContext()).categoryDao().getAllCategories()
+        val categories = DatabaseFacilRecetas.getInstance(requireContext()).categoryDao().getAllCategories()
         if (categories.size > 0) {
             for (cat in categories!!) {
                 dCategory = Category(cat._id, cat.strCategory,cat.strCategoryDescription, cat.strCategoryThumb )

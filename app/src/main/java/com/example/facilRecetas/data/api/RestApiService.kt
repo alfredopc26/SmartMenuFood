@@ -80,8 +80,8 @@ class RetrofitInstance {
 
 //        const val BASE_URL: String = "http://10.0.2.2:3000/api/"
 //        const val BASE_URL: String = "http://192.168.1.14:3000/api/"
-//        const val BASE_URL: String = "https://easykitchenbackend.onrender.com/api/"
-          const val BASE_URL: String = "http://192.168.1.3:3000/"
+        const val BASE_URL: String = "https://fathomless-dawn-79339.herokuapp.com/"
+        //         const val BASE_URL: String = "http://192.168.1.3:3000/"
 //        const val BASE_URL: String = "https://8e468e9d-d2db-464d-a954-92deff7d7a29.mock.pstmn.io/"
 
         val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
