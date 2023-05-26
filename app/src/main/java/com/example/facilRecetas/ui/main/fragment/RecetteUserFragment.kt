@@ -16,6 +16,7 @@ import com.example.facilRecetas.R
 import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
 import com.example.facilRecetas.data.models.Recette
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.ui.main.adapter.BlogAdapter
 import com.example.facilRecetas.ui.main.view.RecetteActivity
 import com.example.facilRecetas.utils.services.Cart
@@ -36,7 +37,7 @@ class RecetteUserFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private lateinit var recetteArrayList: java.util.ArrayList<Recette>
     private lateinit var blogAdapter: BlogAdapter
-
+    private lateinit var dRecette: Recette
 
 
 
@@ -98,31 +99,22 @@ class RecetteUserFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun getRecetteByIngredients(){
         recetteArrayList = java.util.ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getRecette()
-        call.enqueue(object : Callback<List<Recette>> {
-            override fun onResponse(call: Call<List<Recette>>, response: Response<List<Recette>>) {
-                if (response.isSuccessful) {
-                    val recetteList = response.body()
-                    for (recette in recetteList!!) {
-                        if (recetteFilter(recette)) {
-                            recetteArrayList.add(recette)
-                            Log.d("recetteArrayList",recetteArrayList.toString())
-
-                        }
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                if(reccete.username != "restaurant"){
+                    dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                    if (recetteFilter(dRecette) == true) {
+                        Log.d("FoodFilter", recetteFilter(dRecette).toString())
+                        recetteArrayList.add(dRecette)
                     }
-                    if (recetteArrayList.size == 0) {
-                        emptyRecipeLayout.visibility = LinearLayout.VISIBLE
-                    }
-                    blogAdapter.notifyDataSetChanged()
                 }
-
             }
-
-            override fun onFailure(call: Call<List<Recette>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
+            if (recetteArrayList.size == 0) {
+                emptyRecipeLayout.visibility = LinearLayout.VISIBLE
             }
-        })
+        }
     }
 
     private fun recetteFilter(recette: Recette): Boolean {
