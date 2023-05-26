@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/recetteFormTitle"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:titleTextColor="@color/white" />
 
     <ScrollView
@@ -265,6 +266,7 @@
                         android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
                         android:hint="Select an ingredient"
                         android:padding="12dp"
+                        android:textColor="@color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/MeasureInputTxt1"
                         app:layout_constraintStart_toStartOf="parent"

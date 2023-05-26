@@ -89,7 +89,6 @@ class UpdateDataActivity: AppCompatActivity() {
         fun getInfoRecettes() {
             val recetteList = getMapArrayList("json/recette.json")
             if(recetteList.isNotEmpty()){
-                DatabaseFacilRecetas.getInstance(applicationContext).recetteDao().deleteAllRecette()
                 for (recette in recetteList!!) {
                     val likesDouble = recette["likes"] as? Double
                     val dislikesDouble = recette["dislikes"] as? Double

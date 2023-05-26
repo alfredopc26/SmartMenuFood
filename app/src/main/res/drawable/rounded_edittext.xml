@@ -11,12 +11,17 @@
             android:padding="10dp"
             >
 
-            <solid android:color="@color/white" />
+            <solid android:color="?attr/colorOnPrimary" />
             <corners
                 android:bottomRightRadius="15dp"
                 android:bottomLeftRadius="15dp"
                 android:topLeftRadius="15dp"
                 android:topRightRadius="15dp" />
+            <stroke
+                android:bottomRightRadius="15dp"
+                android:bottomLeftRadius="15dp"
+                android:width="2dp"
+                android:color="?attr/colorOnPrimary" />
         </shape>
     </item>
     </selector>

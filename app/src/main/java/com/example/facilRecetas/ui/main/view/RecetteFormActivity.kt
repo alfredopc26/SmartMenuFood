@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.facilRecetas.R
 import com.example.facilRecetas.data.api.RestApiService
@@ -167,7 +168,12 @@ class RecetteFormActivity : AppCompatActivity() {
         }
 
 
-
+        val toolbar = findViewById<Toolbar>(R.id.recetteFormBar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         difficultyDropDown = findViewById(R.id.difficultyDropDown)
 

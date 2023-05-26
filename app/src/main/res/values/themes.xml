@@ -1,21 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SmartMenuFood" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SmartMenuFood" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:forceDarkAllowed">false</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary_sm</item>
         <item name="colorPrimaryVariant">@color/variantsm</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/rosybrown</item>
+        <item name="colorSecondaryVariant">@color/rosybrown</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="Theme.SmartMenu" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SmartMenu" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/rosybrown</item>
+        <item name="colorPrimary">@color/primary_sm</item>
         <item name="colorPrimaryVariant">@color/rosybrown</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:fontFamily">@font/poppins_thin</item>
