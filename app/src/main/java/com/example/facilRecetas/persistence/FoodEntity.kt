@@ -3,29 +3,17 @@ package com.example.facilRecetas.persistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 
-@Entity(tableName = "recette")
-data class RecetteEntity(
+@Entity(tableName = "food")
+data class FoodEntity(
     @PrimaryKey val _id: String,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "category") val category: String,
-    @ColumnInfo(name = "area") val area: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "image") val image: String,
-    @ColumnInfo(name = "likes") val likes: Int,
-    @ColumnInfo(name = "dislikes") val dislikes: Int,
-    @ColumnInfo(name = "isBio") val isBio: Boolean,
-    @ColumnInfo(name = "duration") val duration: Int,
-    @ColumnInfo(name = "person") val person: Int,
-    @ColumnInfo(name = "difficulty") val difficulty: String,
-    @ColumnInfo(name = "username") val username: String,
-    @ColumnInfo(name = "comments") val comments: ArrayList<String>,
-    @ColumnInfo(name = "usersLiked") val usersLiked: ArrayList<String>,
-    @ColumnInfo(name = "usersDisliked") val usersDisliked: ArrayList<String>,
+    @ColumnInfo(name = "strMeal") val name: String,
+    @ColumnInfo(name = "strMealThumb") val description: String,
+    @ColumnInfo(name = "strSource") val image: String,
+    @ColumnInfo(name = "strYoutube") val likes: Int,
+    @ColumnInfo(name = "strArea") val dislikes: Int,
+    @ColumnInfo(name = "strCategory") val isBio: Boolean,
     @ColumnInfo(name = "strIngredient1") val strIngredient1: String,
     @ColumnInfo(name = "strIngredient2") val strIngredient2: String,
     @ColumnInfo(name = "strIngredient3") val strIngredient3: String,
@@ -46,4 +34,4 @@ data class RecetteEntity(
     @ColumnInfo(name = "strMeasure8") val strMeasure8: String,
     @ColumnInfo(name = "strMeasure9") val strMeasure9: String,
     @ColumnInfo(name = "strMeasure10") val strMeasure10: String
-    )
+)

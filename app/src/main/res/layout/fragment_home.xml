@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:text="@string/recomendRecet"
+                android:text="@string/certificateReccette"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/recommendedView"
                 app:layout_constraintStart_toStartOf="parent"

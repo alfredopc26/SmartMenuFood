@@ -43,8 +43,10 @@ class HomeFragment : Fragment() {
     private lateinit var recetteArray:ArrayList<Recette>
     private lateinit var recetteArrayHeader: TextView
     private lateinit var categoryList: ArrayList<Category>
-    private lateinit var foodList: ArrayList<Food>
+    private lateinit var foodList: ArrayList<Recette>
+    private lateinit var recetteList: ArrayList<Recette>
     private lateinit var dCategory: Category
+    private lateinit var dRecette: Recette
     private lateinit var db: DatabaseFacilRecetas
 
     override fun onCreateView(
@@ -62,21 +64,23 @@ class HomeFragment : Fragment() {
         val drawerLayout = (activity as MainMenuActivity).drawerLayout
 
         initCategoryList()
-        val categoryLayoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        categoryRecyclerView = view.findViewById(R.id.categorieView)
-        categoryRecyclerView.layoutManager = categoryLayoutManager
-        categoryRecyclerView.setHasFixedSize(true)
-        categoryAdapter = CategoryAdapter(categoryList)
-        categoryRecyclerView.adapter = categoryAdapter
+        if (categoryList.isNotEmpty()) {
+            val categoryLayoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            categoryRecyclerView = view.findViewById(R.id.categorieView)
+            categoryRecyclerView.layoutManager = categoryLayoutManager
+            categoryRecyclerView.setHasFixedSize(true)
+            categoryAdapter = CategoryAdapter(categoryList)
+            categoryRecyclerView.adapter = categoryAdapter
 
-        categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                val intent = Intent(context, CategoryRecipesFilterActivity::class.java)
-                intent.putExtra("category", categoryList[position].name)
-                startActivity(intent)
-            }
-        })
+            categoryAdapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
+                override fun onItemClick(position: Int) {
+                    val intent = Intent(context, CategoryRecipesFilterActivity::class.java)
+                    intent.putExtra("category", categoryList[position].name)
+                    startActivity(intent)
+                }
+            })
+        }
 
         initFoodList()
         val expertRecipesTextHeader = view.findViewById<TextView>(R.id.expertText)
@@ -127,59 +131,35 @@ class HomeFragment : Fragment() {
     }
 
     private fun initFoodList() {
+
         foodList = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getFoodsList()
-        call.enqueue((object : Callback<List<Food>> {
-            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
-                if (response.isSuccessful) {
-                    var foods = response.body()
-                    for (food in foods!!) {
-                        if (dailyFood()=="Desayunos"){
-                            if (food.category=="Desayunos"){ foodList.add(food)}
-                        }
-                        if (dailyFood()=="Almuerzos"){
-                            if (food.category=="Almuerzos" || food.category=="Sancochos" || food.category=="Arroces"){ foodList.add(food)}
-                        }
-                        if (dailyFood()=="Cenas"){
-                            if (food.category=="Cenas"){ foodList.add(food)}
-                        }
-                    }
-                    val randomFood = foodList.random()
-                    foodList.clear()
-                    foodList.add(randomFood)
-                    expertRecipesAdapter.notifyDataSetChanged()
-                }
-
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                foodList.add(dRecette)
             }
 
-            override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-                Log.d("400","Failure = "+t.toString());
-            }
-
-        }))
+            val randomFood = foodList.random()
+            foodList.clear()
+            foodList.add(randomFood)
+        }
     }
 
     private fun initRecetteList() {
+        recetteList = ArrayList()
         recetteArray = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getRecette()
-        call.enqueue(object : Callback<List<Recette>> {
-            override fun onResponse(call: Call<List<Recette>>, response: Response<List<Recette>>) {
-                if(response.body() != null) {
-//                    recetteArray.addAll(response.body()!!)
-                    val listRecette = response.body()!!.sortedWith(compareByDescending  { (it.likes.toFloat()-it.dislikes.toFloat()) })
-                    recetteArray.addAll(listRecette)
-                    recommendedFoodAdapter.notifyDataSetChanged()
-                    Log.d("recetteArray",recetteArray.size.toString())
-                }
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                recetteArray.add(dRecette)
             }
-            override fun onFailure(call: Call<List<Recette>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
-            }
-
-        })
+        }
     }
+
     private fun dailyFood (): String {
         val current = LocalTime.now()
         val morning = LocalTime.of(6,0)

@@ -18,6 +18,7 @@ import com.example.facilRecetas.R
 import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
 import com.example.facilRecetas.data.models.Ingredients
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.ui.main.adapter.IngredientsAdapter
 import com.example.facilRecetas.ui.main.view.IngredientsCartActivity
 import com.example.facilRecetas.utils.services.Cart
@@ -151,33 +152,21 @@ class BasketFragment : Fragment() {
 
     private fun initIngredientsList() {
         ingredientsArrayList = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getIngredientsList()
-        call.enqueue(object : Callback<List<Ingredients>> {
-            override fun onResponse(call: Call<List<Ingredients>>, response: Response<List<Ingredients>>) {
-                if (response.isSuccessful) {
-                    val ingredientsList = response.body()
-                    if (ingredientsList != null) {
-                        for (ingredient in ingredientsList) {
-                            ingredientsArrayList.add(ingredient.name)
-                        }
-                    }
-                    ingredientsArrayList.removeAll(Cart.cart)
-                    ingredientsArrayList.addAll(Cart.cartRemovedItems)
-                    adapter.notifyDataSetChanged()
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).ingredientDao()
+        val ingredients = retIn.getAllIngredient()
 
-                    if (ingredientsArrayList.isEmpty()) {
-                        noIngredientsLayout.visibility = View.VISIBLE
-                    } else {
-                        noIngredientsLayout.visibility = View.GONE
-                    }
-                }
+        if (ingredients.isNotEmpty()) {
+            for (ingredient in ingredients!!) {
+                ingredientsArrayList.add(ingredient.name)
             }
+        }
+        ingredientsArrayList.removeAll(Cart.cart)
+        ingredientsArrayList.addAll(Cart.cartRemovedItems)
 
-            override fun onFailure(call: Call<List<Ingredients>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
-                noIngredientsLayout.visibility = View.VISIBLE
-            }
-        })
+        if (ingredientsArrayList.isEmpty()) {
+            noIngredientsLayout.visibility = View.VISIBLE
+        } else {
+            noIngredientsLayout.visibility = View.GONE
+        }
     }
 }

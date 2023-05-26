@@ -19,8 +19,13 @@ import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
 import com.example.facilRecetas.ui.main.adapter.FoodAdapter
 import com.example.facilRecetas.data.models.Food
+import com.example.facilRecetas.data.models.Recette
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
+import com.example.facilRecetas.persistence.RecetteEntity
 import com.example.facilRecetas.ui.main.view.FoodRecipeActivity
+import com.example.facilRecetas.ui.main.view.RecetteFormActivity
 import com.example.facilRecetas.utils.services.LoadingDialog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,12 +34,14 @@ class FoodFragment : Fragment() {
     private lateinit var loadingDialog: LoadingDialog
     private lateinit var adapter : FoodAdapter
     private lateinit var recyclerView : RecyclerView
-    private lateinit var foodArrayList: ArrayList<Food>
+    private lateinit var foodArrayList: ArrayList<Recette>
     private lateinit var searchView: SearchView
     private lateinit var noFoodLayout: LinearLayout
-
+    private lateinit var dRecette: Recette
 //    val loadingDialog = LoadingDialog(requireActivity())
     private lateinit var swiperRefreshLayout : SwipeRefreshLayout
+
+    lateinit var addButton: FloatingActionButton
 
 
     override fun onCreateView(
@@ -96,12 +103,18 @@ class FoodFragment : Fragment() {
             }
         })
 
+        addButton= view.findViewById(R.id.addButton)
+        addButton.setOnClickListener {
+            val intent = Intent(context, RecetteFormActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
+        }
 
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun filterList(newText: String) {
-        val filteredList = ArrayList<Food>()
+        val filteredList = ArrayList<Recette>()
         for (item in foodArrayList) {
             if (item.name.toLowerCase().contains(newText.toLowerCase())) {
                 filteredList.add(item)
@@ -142,32 +155,20 @@ class FoodFragment : Fragment() {
         foodArrayList = ArrayList()
         val ingredients = ArrayList<String>()
         foodArrayList.clear()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getFoodsList()
-        call.enqueue(object : Callback<List<Food>> {
-            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
-                if (response.isSuccessful) {
-                    foodArrayList.addAll(response.body()!!)
-                    adapter.notifyDataSetChanged()
-                    loadingDialog.dismissDialog()
-                    Log.d("FoodList", foodArrayList.toString())
-                    Log.d("Ingredients", ingredients.toString())
-
-                    if (foodArrayList.isEmpty()){
-                        noFoodLayout.visibility = View.VISIBLE
-                    } else {
-                        noFoodLayout.visibility = View.GONE
-                    }
-                }
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                foodArrayList.add(dRecette)
             }
-
-            override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
-                loadingDialog.dismissDialog()
+            loadingDialog.dismissDialog()
+            if (foodArrayList.isEmpty()){
                 noFoodLayout.visibility = View.VISIBLE
+            } else {
+                noFoodLayout.visibility = View.GONE
             }
-        })
-
+        }
 
     }
 }

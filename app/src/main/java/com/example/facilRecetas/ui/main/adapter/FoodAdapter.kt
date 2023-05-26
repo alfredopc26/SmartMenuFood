@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.example.facilRecetas.R
 import com.example.facilRecetas.data.models.Food
+import com.example.facilRecetas.data.models.Recette
+import com.example.facilRecetas.persistence.RecetteEntity
 
-class FoodAdapter(private var foodList: List<Food>): RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+class FoodAdapter(private var foodList: List<Recette>): RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
     private lateinit var mListener: OnItemClickListener
 
     interface OnItemClickListener {
@@ -51,7 +53,7 @@ class FoodAdapter(private var foodList: List<Food>): RecyclerView.Adapter<FoodAd
         return foodList.size
     }
 
-    fun filterList(filteredList: ArrayList<Food>) {
+    fun filterList(filteredList: ArrayList<Recette>) {
         foodList = filteredList
         notifyDataSetChanged()
 

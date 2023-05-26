@@ -137,16 +137,6 @@ class RecetteUserFragment : Fragment(), SearchView.OnQueryTextListener {
         if(!recette.strIngredient8.isNullOrEmpty() && recette.strIngredient8.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient8.toString()) }
         if(!recette.strIngredient9.isNullOrEmpty() && recette.strIngredient9.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient9.toString()) }
         if(!recette.strIngredient10.isNullOrEmpty() && recette.strIngredient10.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient10.toString()) }
-        if(!recette.strIngredient11.isNullOrEmpty() && recette.strIngredient11.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient11.toString()) }
-        if(!recette.strIngredient12.isNullOrEmpty() && recette.strIngredient12.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient12.toString()) }
-        if(!recette.strIngredient13.isNullOrEmpty() && recette.strIngredient13.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient13.toString()) }
-        if(!recette.strIngredient14.isNullOrEmpty() && recette.strIngredient14.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient14.toString()) }
-        if(!recette.strIngredient15.isNullOrEmpty() && recette.strIngredient15.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient15.toString()) }
-        if(!recette.strIngredient16.isNullOrEmpty() && recette.strIngredient16.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient16.toString()) }
-        if(!recette.strIngredient17.isNullOrEmpty() && recette.strIngredient17.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient17.toString()) }
-        if(!recette.strIngredient18.isNullOrEmpty() && recette.strIngredient18.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient18.toString()) }
-        if(!recette.strIngredient19.isNullOrEmpty() && recette.strIngredient19.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient19.toString()) }
-        if(!recette.strIngredient20.isNullOrEmpty() && recette.strIngredient20.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient20.toString()) }
 
         if (ingredients.containsAll(Cart.cart)) {
             Log.d("recette", ingredients.toString())

@@ -18,6 +18,7 @@ import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
 import com.example.facilRecetas.data.models.Food
 import com.example.facilRecetas.data.models.Recette
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.ui.main.adapter.FoodAdapter
 import com.example.facilRecetas.ui.main.view.FoodRecipeActivity
 import com.example.facilRecetas.utils.services.Cart
@@ -35,9 +36,10 @@ class ExpertRecipeFragment : Fragment(), SearchView.OnQueryTextListener {
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FoodAdapter
-    private lateinit var foodArrayList: java.util.ArrayList<Food>
+    private lateinit var foodArrayList: java.util.ArrayList<Recette>
     private lateinit var emptyRecipeLayout: LinearLayout
     private lateinit var searchView: SearchView
+    private lateinit var dRecette: Recette
 
 
     override fun onCreateView(
@@ -90,33 +92,24 @@ class ExpertRecipeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun getFoodByIngredients(){
         foodArrayList = java.util.ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getFoodsList()
-        call.enqueue(object : Callback<List<Food>> {
-            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
-                if (response.isSuccessful) {
-                    val foodList = response.body()
-                    for (food in foodList!!) {
-                        if (foodFilter(food) == true) {
-                            Log.d("FoodFilter", foodFilter(food).toString())
-                            foodArrayList.add(food)
-                        }
-                    }
-                    if (foodArrayList.size == 0) {
-                        emptyRecipeLayout.visibility = LinearLayout.VISIBLE
-                    }
-                    adapter.notifyDataSetChanged()
+        val retIn = DatabaseFacilRecetas.getInstance(requireContext()).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                if (foodFilter(dRecette) == true) {
+                    Log.d("FoodFilter", foodFilter(dRecette).toString())
+                    foodArrayList.add(dRecette)
                 }
-
             }
-
-            override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
+            if (foodArrayList.size == 0) {
+                emptyRecipeLayout.visibility = LinearLayout.VISIBLE
             }
-        })
+            adapter.notifyDataSetChanged()
+        }
     }
 
-    private fun foodFilter(food: Food): Boolean {
+    private fun foodFilter(food: Recette): Boolean {
         val ingredients = java.util.ArrayList<String>()
         if(!food.strIngredient1.isNullOrEmpty() && food.strIngredient1.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient1.toString()) }
         if(!food.strIngredient2.isNullOrEmpty() && food.strIngredient2.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient2.toString()) }
@@ -128,16 +121,6 @@ class ExpertRecipeFragment : Fragment(), SearchView.OnQueryTextListener {
         if(!food.strIngredient8.isNullOrEmpty() && food?.strIngredient8.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient8.toString()) }
         if(!food.strIngredient9.isNullOrEmpty() && food.strIngredient9.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient9.toString()) }
         if(!food.strIngredient10.isNullOrEmpty() && food.strIngredient10.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient10.toString()) }
-        if(!food.strIngredient11.isNullOrEmpty() && food.strIngredient11.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient11.toString()) }
-        if(!food.strIngredient12.isNullOrEmpty() && food.strIngredient12.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient12.toString()) }
-        if(!food.strIngredient13.isNullOrEmpty() && food.strIngredient13.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient13.toString()) }
-        if(!food.strIngredient14.isNullOrEmpty() && food.strIngredient14.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient14.toString()) }
-        if(!food.strIngredient15.isNullOrEmpty() && food.strIngredient15.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient15.toString()) }
-        if(!food.strIngredient16.isNullOrEmpty() && food.strIngredient16.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient16.toString()) }
-        if(!food.strIngredient17.isNullOrEmpty() && food.strIngredient17.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient17.toString()) }
-        if(!food.strIngredient18.isNullOrEmpty() && food.strIngredient18.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient18.toString()) }
-        if(!food.strIngredient19.isNullOrEmpty() && food.strIngredient19.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient19.toString()) }
-        if(!food.strIngredient20.isNullOrEmpty() && food.strIngredient20.toString().trim().isNotBlank()) { ingredients.add(food?.strIngredient20.toString()) }
         if (ingredients.containsAll(Cart.cart)) {
             Log.d("Food", Cart.cart.toString())
             return true
@@ -147,7 +130,7 @@ class ExpertRecipeFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
     private fun filterList(newText: String) {
-        val filteredList = java.util.ArrayList<Food>()
+        val filteredList = java.util.ArrayList<Recette>()
         for (item in foodArrayList) {
             if (item.name.toLowerCase().contains(newText.toLowerCase())) {
                 filteredList.add(item)

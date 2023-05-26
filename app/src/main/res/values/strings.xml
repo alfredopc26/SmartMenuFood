@@ -34,6 +34,7 @@
     <string name="dureeRecetteInput">Duración de la receta</string>
     <string name="personRecetteInput">Numero de personas</string>
     <string name="difficultyRecetteInput">Dificultad de la receta</string>
+    <string name="selectCategory">Seleccione una categoría</string>
     <string name="bioRecetteInput">Es tu receta Vegetariana ?</string>
     <string name="Mesure">Medida</string>
     <string name="MeasureTxt">Medida</string>
@@ -61,4 +62,7 @@
     <string name="add_ingredients">Agregar ingredientes</string>
     <string name="create_reccete">Crear recetas</string>
     <string name="process_ingredients">Procesar ingredientes</string>
+    <string name="certificateReccette">Receta certificada</string>
+    <string name="reccette_expert">Receta</string>
+    <string name="add">Agregar</string>
 </resources>

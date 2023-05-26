@@ -355,7 +355,7 @@ class RecetteFormEditActivity : AppCompatActivity() {
             if (validate(titreInput, descInput, dureeInput, personInput, difficultyDropDown) && checkIngredients) {
                 Log.d("checkSubmit","3")
 
-                submit(titreInput.text.toString(), descInput.text.toString(),bio, Integer.parseInt(dureeInput.text.toString()), Integer.parseInt(personInput.text.toString()),difficultyDropDown.text.toString(),
+                submit(titreInput.text.toString(), descInput.text.toString(), "", "", bio, Integer.parseInt(dureeInput.text.toString()), Integer.parseInt(personInput.text.toString()),difficultyDropDown.text.toString(),
                     tv1.text.toString(),tv2.text.toString(),tv3.text.toString(),tv4.text.toString(),tv5.text.toString(),tv6.text.toString(),tv7.text.toString(),tv8.text.toString(),tv9.text.toString(),tv10.text.toString(),tv11.text.toString(),tv12.text.toString(),tv13.text.toString(),tv14.text.toString(),tv15.text.toString(),tv16.text.toString(),tv17.text.toString(),tv18.text.toString(),tv19.text.toString(),tv20.text.toString(),
                     measureFuse(et1,t1),measureFuse(et2,t2),measureFuse(et3,t3),measureFuse(et4,t4),measureFuse(et5,t5),measureFuse(et6,t6),measureFuse(et7,t7),measureFuse(et8,t8),measureFuse(et9,t9),measureFuse(et10,t10),measureFuse(et11,t11),measureFuse(et12,t12),measureFuse(et13,t13),measureFuse(et14,t14),measureFuse(et15,t15),measureFuse(et16,t16),measureFuse(et17,t17),measureFuse(et18,t18),measureFuse(et19,t19),measureFuse(et20,t20))
                 Log.d("checkSubmit","4")
@@ -520,11 +520,12 @@ class RecetteFormEditActivity : AppCompatActivity() {
     private fun submit(
         name: String,
         description: String,
+        category: String,
+        area: String,
         isBio: Boolean,
         duration: Int,
         person: Int,
         difficulty: String,
-
         strIngredient1: String,strIngredient2: String,strIngredient3: String,strIngredient4: String,strIngredient5: String,strIngredient6: String,strIngredient7: String,strIngredient8: String,strIngredient9: String,strIngredient10: String,strIngredient11: String,strIngredient12: String,strIngredient13: String,strIngredient14: String,strIngredient15: String,strIngredient16: String,strIngredient17: String,strIngredient18: String,strIngredient19: String,strIngredient20: String,
         strMeasure1: String,strMeasure2: String,strMeasure3: String,strMeasure4: String,strMeasure5: String,strMeasure6: String,strMeasure7: String,strMeasure8: String,strMeasure9: String,strMeasure10: String,strMeasure11: String,strMeasure12: String,strMeasure13: String,strMeasure14: String,strMeasure15: String,strMeasure16: String,strMeasure17: String,strMeasure18: String,strMeasure19: String,strMeasure20: String
     ) {
@@ -532,17 +533,19 @@ class RecetteFormEditActivity : AppCompatActivity() {
         val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
         Log.d("check","2")
         val image: String = "test55"
-        Log.d("check","3")
+        val d = Log.d("check", "3")
         val recetteInfo = Recette(
             name,
+            category,
+            area,
             description,
             image,
             isBio,
             duration,
             person,
             difficulty,
-            strIngredient1,strIngredient2,strIngredient3,strIngredient4,strIngredient5,strIngredient6,strIngredient7,strIngredient8,strIngredient9,strIngredient10,strIngredient11,strIngredient12,strIngredient13,strIngredient14,strIngredient15,strIngredient16,strIngredient17,strIngredient18,strIngredient19,strIngredient20,
-            strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10,strMeasure11,strMeasure12,strMeasure13,strMeasure14,strMeasure15,strMeasure16,strMeasure17,strMeasure18,strMeasure19,strMeasure20
+            strIngredient1,strIngredient2,strIngredient3,strIngredient4,strIngredient5,strIngredient6,strIngredient7,strIngredient8,strIngredient9,strIngredient10,
+            strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10
 
 
         )
@@ -628,16 +631,6 @@ class RecetteFormEditActivity : AppCompatActivity() {
                 tv8.text=response.body()!!.strIngredient8
                 tv9.text=response.body()!!.strIngredient9
                 tv10.text=response.body()!!.strIngredient10
-                tv11.text=response.body()!!.strIngredient11
-                tv12.text=response.body()!!.strIngredient12
-                tv13.text=response.body()!!.strIngredient13
-                tv14.text=response.body()!!.strIngredient14
-                tv15.text=response.body()!!.strIngredient15
-                tv16.text=response.body()!!.strIngredient16
-                tv17.text=response.body()!!.strIngredient17
-                tv18.text=response.body()!!.strIngredient18
-                tv19.text=response.body()!!.strIngredient19
-                tv20.text=response.body()!!.strIngredient20
 
                 et1.setText(copyNumbers(response.body()!!.strMeasure1))
                 et2.setText(copyNumbers(response.body()!!.strMeasure2))
@@ -649,16 +642,6 @@ class RecetteFormEditActivity : AppCompatActivity() {
                 et8.setText(copyNumbers(response.body()!!.strMeasure8))
                 et9.setText(copyNumbers(response.body()!!.strMeasure9))
                 et10.setText(copyNumbers(response.body()!!.strMeasure10))
-                et11.setText(copyNumbers(response.body()!!.strMeasure11))
-                et12.setText(copyNumbers(response.body()!!.strMeasure12))
-                et13.setText(copyNumbers(response.body()!!.strMeasure13))
-                et14.setText(copyNumbers(response.body()!!.strMeasure14))
-                et15.setText(copyNumbers(response.body()!!.strMeasure15))
-                et16.setText(copyNumbers(response.body()!!.strMeasure16))
-                et17.setText(copyNumbers(response.body()!!.strMeasure17))
-                et18.setText(copyNumbers(response.body()!!.strMeasure18))
-                et19.setText(copyNumbers(response.body()!!.strMeasure19))
-                et20.setText(copyNumbers(response.body()!!.strMeasure20))
 
                 t1.text=response.body()!!.strMeasure1.takeLast(2)
                 t2.text=response.body()!!.strMeasure2.takeLast(2)
@@ -670,16 +653,6 @@ class RecetteFormEditActivity : AppCompatActivity() {
                 t8.text=response.body()!!.strMeasure8.takeLast(2)
                 t9.text=response.body()!!.strMeasure9.takeLast(2)
                 t10.text=response.body()!!.strMeasure10.takeLast(2)
-                t11.text=response.body()!!.strMeasure11.takeLast(2)
-                t12.text=response.body()!!.strMeasure12.takeLast(2)
-                t13.text=response.body()!!.strMeasure13.takeLast(2)
-                t14.text=response.body()!!.strMeasure14.takeLast(2)
-                t15.text=response.body()!!.strMeasure15.takeLast(2)
-                t16.text=response.body()!!.strMeasure16.takeLast(2)
-                t17.text=response.body()!!.strMeasure17.takeLast(2)
-                t18.text=response.body()!!.strMeasure18.takeLast(2)
-                t19.text=response.body()!!.strMeasure19.takeLast(2)
-                t20.text=response.body()!!.strMeasure20.takeLast(2)
 
                 if(!recette?.strIngredient1.isNullOrEmpty() && recette?.strIngredient1.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient1.toString()) }
                 if(!recette?.strIngredient2.isNullOrEmpty() && recette?.strIngredient2.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient2.toString()) }
@@ -691,16 +664,6 @@ class RecetteFormEditActivity : AppCompatActivity() {
                 if(!recette?.strIngredient8.isNullOrEmpty() && recette?.strIngredient8.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient8.toString()) }
                 if(!recette?.strIngredient9.isNullOrEmpty() && recette?.strIngredient9.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient9.toString()) }
                 if(!recette?.strIngredient10.isNullOrEmpty() && recette?.strIngredient10.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient10.toString()) }
-                if(!recette?.strIngredient11.isNullOrEmpty() && recette?.strIngredient11.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient11.toString()) }
-                if(!recette?.strIngredient12.isNullOrEmpty() && recette?.strIngredient12.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient12.toString()) }
-                if(!recette?.strIngredient13.isNullOrEmpty() && recette?.strIngredient13.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient13.toString()) }
-                if(!recette?.strIngredient14.isNullOrEmpty() && recette?.strIngredient14.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient14.toString()) }
-                if(!recette?.strIngredient15.isNullOrEmpty() && recette?.strIngredient15.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient15.toString()) }
-                if(!recette?.strIngredient16.isNullOrEmpty() && recette?.strIngredient16.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient16.toString()) }
-                if(!recette?.strIngredient17.isNullOrEmpty() && recette?.strIngredient17.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient17.toString()) }
-                if(!recette?.strIngredient18.isNullOrEmpty() && recette?.strIngredient18.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient18.toString()) }
-                if(!recette?.strIngredient19.isNullOrEmpty() && recette?.strIngredient19.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient19.toString()) }
-                if(!recette?.strIngredient20.isNullOrEmpty() && recette?.strIngredient20.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient20.toString()) }
 
                 ingredientsList.addAll(ingredients.filter { it.trim().isNotEmpty() })
 

@@ -14,6 +14,8 @@ import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
 import com.example.facilRecetas.data.models.Area
 import com.example.facilRecetas.data.models.Food
+import com.example.facilRecetas.data.models.Recette
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.ui.main.adapter.AreaAdapter
 import com.example.facilRecetas.ui.main.adapter.FoodAdapter
 import retrofit2.Call
@@ -24,7 +26,7 @@ class CategoryRecipesFilterActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: FoodAdapter
-    lateinit var foodArrayList: ArrayList<Food>
+    lateinit var foodArrayList: ArrayList<Recette>
     lateinit var swiperRefreshLayout: SwipeRefreshLayout
     lateinit var areaList: ArrayList<String>
     lateinit var areaLisView: RecyclerView
@@ -32,6 +34,7 @@ class CategoryRecipesFilterActivity : AppCompatActivity() {
     lateinit var defaultArea: String
     lateinit var connectionLayout : LinearLayout
     lateinit var noDataLayout : LinearLayout
+    private lateinit var dRecette: Recette
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,35 +93,22 @@ class CategoryRecipesFilterActivity : AppCompatActivity() {
         val area = intent.getStringExtra("area")
 
         foodArrayList = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getFoodsList()
-        call.enqueue(object : Callback<List<Food>> {
-            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
-                if (response.isSuccessful) {
-                    val foodList = response.body()
-                    for (food in foodList!!) {
-                        if (food.category == intent.getStringExtra("category")) {
-                            if (area != null && area != "All") {
-                                if (food.area == area) {
-                                    foodArrayList.add(food)
-                                }
-                            } else {
-                                foodArrayList.add(food)
-                            }
+        val retIn = DatabaseFacilRecetas.getInstance(applicationContext).recetteDao()
+        val recettes = retIn.getAllRecette()
+        if (recettes.isNotEmpty()) {
+            for (reccete in recettes!!) {
+                dRecette = Recette(reccete._id,reccete.name,reccete.category,reccete.area,reccete.description, reccete.image, false, reccete.duration,reccete.person, reccete.difficulty, "", reccete.username,reccete.comments,reccete.likes,reccete.dislikes,reccete.usersLiked,reccete.usersDisliked,reccete.strIngredient1,reccete.strIngredient2,reccete.strIngredient3,reccete.strIngredient4,reccete.strIngredient5,reccete.strIngredient6,reccete.strIngredient7,reccete.strIngredient8,reccete.strIngredient9,reccete.strIngredient10,reccete.strMeasure1,reccete.strMeasure2,reccete.strMeasure3,reccete.strMeasure4,reccete.strMeasure5,reccete.strMeasure6,reccete.strMeasure7,reccete.strMeasure8, reccete.strMeasure9, reccete.strMeasure10)
+                if (reccete.category == intent.getStringExtra("category")) {
+                    if (area != null && area != "All") {
+                        if (reccete.area == area) {
+                            foodArrayList.add(dRecette)
                         }
+                    } else {
+                        foodArrayList.add(dRecette)
                     }
-                    if (foodArrayList.size == 0) {
-                        noDataLayout.visibility = LinearLayout.VISIBLE
-                    }
-                    adapter.notifyDataSetChanged()
                 }
             }
-
-            override fun onFailure(call: Call<List<Food>>, t: Throwable) {
-                Log.d("FoodCategoryList", "onFailure: ${t.message}")
-                connectionLayout.visibility = LinearLayout.VISIBLE
-            }
-        })
+        }
     }
 
 

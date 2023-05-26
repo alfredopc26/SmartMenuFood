@@ -65,7 +65,6 @@ class MySingleRecipeActivity : AppCompatActivity() {
         ingredientsList = ArrayList()
         mesuresList = ArrayList()
         initRecette()
-        initComments()
 
         val layoutManagerIngredient = LinearLayoutManager(this)
 
@@ -165,16 +164,6 @@ class MySingleRecipeActivity : AppCompatActivity() {
                 if(!recette?.strIngredient8.isNullOrEmpty() && recette?.strIngredient8.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient8.toString()) }
                 if(!recette?.strIngredient9.isNullOrEmpty() && recette?.strIngredient9.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient9.toString()) }
                 if(!recette?.strIngredient10.isNullOrEmpty() && recette?.strIngredient10.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient10.toString()) }
-                if(!recette?.strIngredient11.isNullOrEmpty() && recette?.strIngredient11.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient11.toString()) }
-                if(!recette?.strIngredient12.isNullOrEmpty() && recette?.strIngredient12.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient12.toString()) }
-                if(!recette?.strIngredient13.isNullOrEmpty() && recette?.strIngredient13.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient13.toString()) }
-                if(!recette?.strIngredient14.isNullOrEmpty() && recette?.strIngredient14.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient14.toString()) }
-                if(!recette?.strIngredient15.isNullOrEmpty() && recette?.strIngredient15.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient15.toString()) }
-                if(!recette?.strIngredient16.isNullOrEmpty() && recette?.strIngredient16.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient16.toString()) }
-                if(!recette?.strIngredient17.isNullOrEmpty() && recette?.strIngredient17.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient17.toString()) }
-                if(!recette?.strIngredient18.isNullOrEmpty() && recette?.strIngredient18.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient18.toString()) }
-                if(!recette?.strIngredient19.isNullOrEmpty() && recette?.strIngredient19.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient19.toString()) }
-                if(!recette?.strIngredient20.isNullOrEmpty() && recette?.strIngredient20.toString().trim().isNotBlank()) { ingredients.add(recette?.strIngredient20.toString()) }
 
                 ingredientsList.addAll(ingredients.filter { it.trim().isNotEmpty() })
 
@@ -188,22 +177,9 @@ class MySingleRecipeActivity : AppCompatActivity() {
                 if (!recette?.strMeasure8.isNullOrEmpty() && recette?.strMeasure8.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure8.toString()) }
                 if (!recette?.strMeasure9.isNullOrEmpty() && recette?.strMeasure9.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure9.toString()) }
                 if (!recette?.strMeasure10.isNullOrEmpty() && recette?.strMeasure10.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure10.toString()) }
-                if (!recette?.strMeasure11.isNullOrEmpty() && recette?.strMeasure11.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure11.toString()) }
-                if (!recette?.strMeasure12.isNullOrEmpty() && recette?.strMeasure12.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure12.toString()) }
-                if (!recette?.strMeasure13.isNullOrEmpty() && recette?.strMeasure13.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure13.toString()) }
-                if (!recette?.strMeasure14.isNullOrEmpty() && recette?.strMeasure14.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure14.toString()) }
-                if (!recette?.strMeasure15.isNullOrEmpty() && recette?.strMeasure15.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure15.toString()) }
-                if (!recette?.strMeasure16.isNullOrEmpty() && recette?.strMeasure16.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure16.toString()) }
-                if (!recette?.strMeasure17.isNullOrEmpty() && recette?.strMeasure17.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure17.toString()) }
-                if (!recette?.strMeasure18.isNullOrEmpty() && recette?.strMeasure18.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure18.toString()) }
-                if (!recette?.strMeasure19.isNullOrEmpty() && recette?.strMeasure19.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure19.toString()) }
-                if (!recette?.strMeasure20.isNullOrEmpty() && recette?.strMeasure20.toString().trim().isNotBlank()) { measures.add(recette?.strMeasure20.toString()) }
 
                 mesuresList.addAll(measures.filter { it.trim().isNotEmpty() })
-
                 adapterIngredient.notifyDataSetChanged()
-
-
             }
 
             override fun onFailure(call: Call<Recette>, t: Throwable) {
@@ -217,24 +193,6 @@ class MySingleRecipeActivity : AppCompatActivity() {
         recreate()
     }
 
-
-    private fun initComments() {
-        commentsList = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getCommentsByRecette(idRecette)
-        call.enqueue(object : Callback<List<Comment>> {
-            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
-                commentsList.addAll(response.body()!!)
-                adapter.notifyDataSetChanged()
-
-            }
-
-            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
-                Log.d("400","Failure = "+t.toString());
-            }
-
-        })
-    }
     private fun deleteRecette(id:String ){
         val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
         val call = retIn.deleteRecette(idRecette)

@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "638b4aeefdcb31f96faba2ce",
+    "strCategory": "Sancochos",
+    "strCategoryThumb": "https://img-global.cpcdn.com/recipes/55cc678536fea0fe/400x400cq70/photo.jpg",
+    "strCategoryDescription": "El sancocho es una sopa elaborada con carnes, tubérculos, verduras y condimentos, típico de varios países hispanoamericanos, en concreto aquellos que pertenecieron al antiguo Virreinato de Nueva Granada, así como en las islas del Caribe hispano."
+  },
+  {
+    "_id": "638b4aeefdcb31f96faba2cd",
+    "strCategory": "Guisados",
+    "strCategoryThumb": "https://www.cocinacaserayfacil.net/wp-content/uploads/2020/06/Muslos-de-pollo-guisados-con-patatas-y-verduras.jpg",
+    "strCategoryDescription": "Un guiso es la cocción en un medio semigraso de uno o varios alimentos. Consiste en preparar los alimentos haciéndolos cocer en una salsa, después de rehogados.​ A diferencia del estofado, permite el reflujo de los vapores durante el proceso de elaboración culinaria.​"
+  },
+  {
+    "_id": "638b4aeefdcb31f96faba2cf",
+    "strCategory": "Arroces",
+    "strCategoryThumb": "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/ZIFZQ52ISVDAFCZXYDJO7ISNCY.png",
+    "strCategoryDescription": "El arroz es la semilla de la planta Oryza sativa o de Oryza glaberrima. Se trata de un cereal considerado alimento básico en muchas gastronomías del mundo.​El arroz es el segundo cereal más producido en el mundo, por detrás del maíz y por delante del trigo.​​"
+  },
+  {
+    "_id": "638b4aeefdcb31f96faba2de",
+    "strCategory": "Desayunos",
+    "strCategoryThumb": "https://www.eltiempo.com/uploads/2018/05/11/5af5b964e5efc.jpeg",
+    "strCategoryDescription": "Un buen desayuno costeño en donde no puede faltar la arepa e huevo, el juguito de corozo ni la carimañola."
+  },
+  {
+    "_id": "638b4aeefdcb31f96faba2dd",
+    "strCategory": "Almuezos",
+    "strCategoryThumb": "https://img.restaurantguru.com/w550/h367/r774-meals-Sabor-Costeno-2021-09.jpg",
+    "strCategoryDescription": "Un buen almuerzo en la costa!"
+  },
+  {
+    "_id": "638b4aeefdcb31f96faba2df",
+    "strCategory": "Cenas",
+    "strCategoryThumb": "https://www.clara.es/medio/2022/02/04/cena-familiar-ideas-cena_6332aa30_1280x1362.jpg",
+    "strCategoryDescription": "Una buena vena para cerra el día."
+  }
+]

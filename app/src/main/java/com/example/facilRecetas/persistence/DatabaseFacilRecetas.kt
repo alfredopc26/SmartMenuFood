@@ -7,11 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
-@Database(entities = [CategoryEntity::class, RecetteEntity::class], version = 1, exportSchema = false)
+@Database(entities = [CategoryEntity::class, RecetteEntity::class, IngredientEntity::class], version = 4, exportSchema = false)
 @TypeConverters(ArrayListConverter::class)
 abstract class DatabaseFacilRecetas : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun recetteDao(): RecetteDao
+    abstract fun ingredientDao(): IngredientDao
 
     companion object {
 
@@ -26,6 +27,7 @@ abstract class DatabaseFacilRecetas : RoomDatabase() {
             Room.databaseBuilder(context.applicationContext,
                 DatabaseFacilRecetas::class.java, "FacilRecetas.db")
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
     }
 

@@ -2,14 +2,12 @@ package com.example.facilRecetas.ui.main.view
 
 
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,20 +17,20 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.textfield.TextInputLayout
 import com.example.facilRecetas.R
 import com.example.facilRecetas.data.api.RestApiService
 import com.example.facilRecetas.data.api.RetrofitInstance
+import com.example.facilRecetas.data.models.Category
 import com.example.facilRecetas.data.models.Ingredients
-import com.example.facilRecetas.data.models.Recette
 import com.example.facilRecetas.databinding.ActivityRecetteFormBinding
-import okhttp3.ResponseBody
+import com.example.facilRecetas.persistence.DatabaseFacilRecetas
+import com.example.facilRecetas.persistence.RecetteEntity
+import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class RecetteFormActivity : AppCompatActivity() {
@@ -43,10 +41,12 @@ class RecetteFormActivity : AppCompatActivity() {
 //    lateinit var imageUri: Uri
     lateinit var titreInput: EditText
     lateinit var descInput: EditText
+    lateinit var areaInput: EditText
     lateinit var dureeInput: EditText
     lateinit var personInput: EditText
     lateinit var bioCheckBox: CheckBox
     lateinit var difficultyDropDown: AutoCompleteTextView
+    lateinit var categoryDropDown: AutoCompleteTextView
     lateinit var listDifficulty: ArrayList<String>
     lateinit var path: String
     private val IMAGE_PICK_CODE = 1
@@ -65,6 +65,7 @@ class RecetteFormActivity : AppCompatActivity() {
 
     lateinit var layoutArray: ArrayList<ConstraintLayout>
     lateinit var linearlayoutIngredients: LinearLayout
+    lateinit var categoryList: ArrayList<String>
 
     //textView inputs
     lateinit var tv1: TextView
@@ -186,6 +187,21 @@ class RecetteFormActivity : AppCompatActivity() {
         setup()
 
 
+
+        categoryDropDown = findViewById(R.id.catDropDown)
+        loadCategoryList()
+
+        val categoryAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, categoryList)
+
+        categoryDropDown.setAdapter(categoryAdapter)
+        categoryDropDown.setOnItemClickListener { adapterView, view, i, l ->
+            Toast.makeText(this, adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_LONG)
+                .show()
+        }
+        setup()
+
+
     }
 
     private fun pickImageFromGallery() {
@@ -205,7 +221,15 @@ class RecetteFormActivity : AppCompatActivity() {
 //            imgView.setImageURI(imageUri)
 //        }
 //    }
-
+    private fun loadCategoryList() {
+        categoryList = ArrayList()
+        val categories = DatabaseFacilRecetas.getInstance(applicationContext).categoryDao().getAllCategories()
+        if (categories.size > 0) {
+            for (cat in categories!!) {
+                categoryList.add(cat.strCategory)
+            }
+        }
+    }
 
     private fun setup() {
         //TextViews Ingredients
@@ -277,10 +301,12 @@ class RecetteFormActivity : AppCompatActivity() {
         submitButton = findViewById(R.id.submit_button)
         titreInput = findViewById(R.id.titreEditText)
         descInput = findViewById(R.id.descEditText)
+        areaInput = findViewById(R.id.areaEditText)
         dureeInput = findViewById(R.id.dureeEditText)
         personInput = findViewById(R.id.personEditText)
         bioCheckBox = findViewById(R.id.bioCheckBox)
         difficultyDropDown = findViewById(R.id.difficultyDropDown)
+        categoryDropDown = findViewById(R.id.catDropDown)
         addIngredient = findViewById(R.id.addIngredient)
         removeIngredient = findViewById(R.id.removeIngredient)
         linearlayoutIngredients = findViewById(R.id.ingredientInputs)
@@ -293,7 +319,6 @@ class RecetteFormActivity : AppCompatActivity() {
             view.visibility = View.GONE
         }
 
-//addIngredient Button
         addIngredient.setOnClickListener {
             Log.d("+ INC", inc.toString())
             inc++
@@ -308,7 +333,6 @@ class RecetteFormActivity : AppCompatActivity() {
             Log.d("++ INC", inc.toString())
         }
 
-        //removeIngredient Button
         removeIngredient.setOnClickListener {
             Log.d("- INC", inc.toString())
             val ingredientInput = linearlayoutIngredients.getChildAt(inc) as ConstraintLayout
@@ -387,6 +411,8 @@ class RecetteFormActivity : AppCompatActivity() {
             if (validate(
                     titreInput,
                     descInput,
+                    categoryDropDown,
+                    areaInput,
                     dureeInput,
                     personInput,
                     difficultyDropDown
@@ -397,6 +423,8 @@ class RecetteFormActivity : AppCompatActivity() {
                 submit(
                     titreInput.text.toString(),
                     descInput.text.toString(),
+                    categoryDropDown.text.toString(),
+                    areaInput.text.toString(),
                     bio,
                     Integer.parseInt(dureeInput.text.toString()),
                     Integer.parseInt(personInput.text.toString()),
@@ -588,8 +616,8 @@ class RecetteFormActivity : AppCompatActivity() {
 
     }
 
-    private fun validate(titreInput: EditText, descInput: EditText, dureeInput: EditText, personInput: EditText, difficulty: AutoCompleteTextView): Boolean {
-        if (titreInput.text.isEmpty() || descInput.text.isEmpty() || dureeInput.text.isEmpty() || personInput.text.isEmpty() || !checkDrop(difficulty.text.toString(),listDifficulty)) {
+    private fun validate(titreInput: EditText, descInput: EditText, category: AutoCompleteTextView,areaInput: EditText, dureeInput: EditText, personInput: EditText, difficulty: AutoCompleteTextView): Boolean {
+        if (titreInput.text.isEmpty() || descInput.text.isEmpty() || dureeInput.text.isEmpty() || personInput.text.isEmpty() || areaInput.text.isEmpty() || !checkDrop(difficulty.text.toString(),listDifficulty) || !checkDrop(category.text.toString(),categoryList)) {
 
             if (titreInput.text.isEmpty()) {
                 titreInput.error = "title is required"
@@ -632,6 +660,8 @@ class RecetteFormActivity : AppCompatActivity() {
     private fun submit(
         name: String,
         description: String,
+        category: String,
+        area: String,
         isBio: Boolean,
         duration: Int,
         person: Int,
@@ -644,49 +674,51 @@ class RecetteFormActivity : AppCompatActivity() {
     )
     {
 
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
+        val retIn =  DatabaseFacilRecetas.getInstance(applicationContext).recetteDao()
         val image =  "test"+Random()
-        val recetteInfo = Recette(
+        val recetteInfo = RecetteEntity(
+            JsonObject().toString(),
             name,
+            category,
+            area,
             description,
             image,
+            0,
+            0,
             isBio,
             duration,
             person,
             difficulty,
-            user,
-            username,
-            strIngredient1,strIngredient2,strIngredient3,strIngredient4,strIngredient5,strIngredient6,strIngredient7,strIngredient8,strIngredient9,strIngredient10,strIngredient11,strIngredient12,strIngredient13,strIngredient14,strIngredient15,strIngredient16,strIngredient17,strIngredient18,strIngredient19,strIngredient20,
-            strMeasure1,strMeasure2,strMeasure3,strMeasure4,strMeasure5,strMeasure6,strMeasure7,strMeasure8,strMeasure9,strMeasure10,strMeasure11,strMeasure12,strMeasure13,strMeasure14,strMeasure15,strMeasure16,strMeasure17,strMeasure18,strMeasure19,strMeasure20
-
-
+            "usertest",
+            ArrayList<String>(),
+            ArrayList<String>(),
+            ArrayList<String>(),
+            strIngredient1,
+            strIngredient2,
+            strIngredient3,
+            strIngredient4,
+            strIngredient5,
+            strIngredient6,
+            strIngredient7,
+            strIngredient8,
+            strIngredient9,
+            strIngredient10,
+            strMeasure1,
+            strMeasure2,
+            strMeasure3,
+            strMeasure4,
+            strMeasure5,
+            strMeasure6,
+            strMeasure7,
+            strMeasure8,
+            strMeasure9,
+            strMeasure10
         )
         Log.d("check","4")
-        retIn.addRecette(recetteInfo).enqueue(object :
-            Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() == 200) {
-                    val intent = Intent(this@RecetteFormActivity, MainMenuActivity::class.java)
-                    startActivity(intent)
-                    finish()
-
-                } else {
-                    val intent = Intent(this@RecetteFormActivity, MainMenuActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(
-                    this@RecetteFormActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        })
+        retIn.insertRecette(recetteInfo)
+        val intent = Intent(this@RecetteFormActivity, MainMenuActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun initIngredients() {
