@@ -42,27 +42,21 @@ class FoodByIngredientsActivity : AppCompatActivity()/*, SearchView.OnQueryTextL
 
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_filter_food)
 
-//        emptyRecipeLayout = findViewById(R.id.noIngredientFilterFoodLayout)
-//        emptyRecipeLayout.visibility = LinearLayout.GONE
-//
-//        toolbar = findViewById(R.id.foodIngredientSearchBar)
-//        setSupportActionBar(toolbar)
-//        toolbar.setTitle("")
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//
-//        toolbar.setNavigationOnClickListener() {
-//            onBackPressed()
-//        }
+/*        emptyRecipeLayout = findViewById(R.id.noIngredientFilterRecetteLayout)
+        emptyRecipeLayout.visibility = LinearLayout.GONE
 
+        toolbar = findViewById(R.id.foodIngredientSearchBar)
+        setSupportActionBar(toolbar)
+        toolbar.setTitle("")
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        toolbar.setNavigationOnClickListener() {
+            onBackPressed()
+        }*/
 
         supportFragmentManager.beginTransaction().replace(R.id.fragments_container, ExpertRecipeFragment())
             .commit()

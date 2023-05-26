@@ -1,37 +1,42 @@
 [
   {
-    "_id": "638b4a7bfdcb31f96faba08d",
+    "_id": "1",
     "strIngredient": "Costilla de res",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba08e",
+    "_id": "2",
     "strIngredient": "Yuca",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba08f",
+    "_id": "3",
     "strIngredient": "Papa",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba080",
+    "_id": "4",
     "strIngredient": "Mazorca",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba081",
+    "_id": "5",
     "strIngredient": "Ñame",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba082",
+    "_id": "6",
     "strIngredient": "Platano",
     "strDescription": ""
   },
   {
-    "_id": "638b4a7bfdcb31f96faba083",
+    "_id": "7",
     "strIngredient": "Cilantro",
+    "strDescription": ""
+  },
+  {
+    "_id": "8",
+    "strIngredient": "Harina",
     "strDescription": ""
   }
 ]

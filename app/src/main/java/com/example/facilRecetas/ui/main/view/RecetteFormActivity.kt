@@ -172,9 +172,9 @@ class RecetteFormActivity : AppCompatActivity() {
         difficultyDropDown = findViewById(R.id.difficultyDropDown)
 
         listDifficulty = ArrayList()
-        listDifficulty.add("Easy")
-        listDifficulty.add("Average")
-        listDifficulty.add("Hard")
+        listDifficulty.add("Fácil")
+        listDifficulty.add("Medio")
+        listDifficulty.add("Difícil")
 
         val difficultyAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listDifficulty)
@@ -212,15 +212,6 @@ class RecetteFormActivity : AppCompatActivity() {
 
     }
 
-//    @Deprecated("Deprecated in Java")
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-//            imageUri = data?.data!!
-//            imgView.setImageURI(imageUri)
-//        }
-//    }
     private fun loadCategoryList() {
         categoryList = ArrayList()
         val categories = DatabaseFacilRecetas.getInstance(applicationContext).categoryDao().getAllCategories()
@@ -407,7 +398,7 @@ class RecetteFormActivity : AppCompatActivity() {
                 checkIngredients = validateIngredients(ingredientText, measureTxt, measureTypeTxt)
             }
             Log.d("checkSubmit", "2")
-
+            Log.d("validate checkIngredients", checkIngredients.toString())
             if (validate(
                     titreInput,
                     descInput,
@@ -429,8 +420,8 @@ class RecetteFormActivity : AppCompatActivity() {
                     Integer.parseInt(dureeInput.text.toString()),
                     Integer.parseInt(personInput.text.toString()),
                     difficultyDropDown.text.toString(),
-                    idUser,
-                    username,
+                    "pruebitas",
+                    "Prubitas_dev",
                     tv1.text.toString(),
                     tv2.text.toString(),
                     tv3.text.toString(),
@@ -648,6 +639,11 @@ class RecetteFormActivity : AppCompatActivity() {
                 difficulty.requestFocus()
 
             }
+            if (!checkDrop(categoryDropDown.text.toString(),categoryList)) {
+                category.error = "Category is required"
+                category.requestFocus()
+
+            }
 
             return false
         }
@@ -675,9 +671,10 @@ class RecetteFormActivity : AppCompatActivity() {
     {
 
         val retIn =  DatabaseFacilRecetas.getInstance(applicationContext).recetteDao()
+        val recetteCount = retIn.getAllRecette().size
         val image =  "test"+Random()
         val recetteInfo = RecetteEntity(
-            JsonObject().toString(),
+            (recetteCount + 1).toString(),
             name,
             category,
             area,
@@ -723,28 +720,13 @@ class RecetteFormActivity : AppCompatActivity() {
 
     private fun initIngredients() {
         ingredientsArray = ArrayList()
-        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-        val call = retIn.getIngredientsList()
-        call.enqueue(object : Callback<List<Ingredients>> {
-            override fun onResponse(
-                call: Call<List<Ingredients>>,
-                response: Response<List<Ingredients>>
-            ) {
-                if (response.isSuccessful) {
-                    val ingredientsList = response.body()
-                    if (ingredientsList != null) {
-                        for (ingredient in ingredientsList) {
-                            ingredientsArray.add(ingredient.name)
-                        }
-                        Log.d("TAG", "onResponse: $ingredientsArray")
-                    }
-                }
+        val retIn = DatabaseFacilRecetas.getInstance(applicationContext).ingredientDao()
+        val ingredients = retIn.getAllIngredient()
+        if (ingredients.isNotEmpty()) {
+            for (ingredient in ingredients!!) {
+                ingredientsArray.add(ingredient.name)
             }
-
-            override fun onFailure(call: Call<List<Ingredients>>, t: Throwable) {
-                Log.d("Error", t.message.toString())
-            }
-        })
+        }
     }
 }
 

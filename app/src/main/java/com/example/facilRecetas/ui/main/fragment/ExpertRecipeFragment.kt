@@ -105,7 +105,6 @@ class ExpertRecipeFragment : Fragment(), SearchView.OnQueryTextListener {
             if (foodArrayList.size == 0) {
                 emptyRecipeLayout.visibility = LinearLayout.VISIBLE
             }
-            adapter.notifyDataSetChanged()
         }
     }
 

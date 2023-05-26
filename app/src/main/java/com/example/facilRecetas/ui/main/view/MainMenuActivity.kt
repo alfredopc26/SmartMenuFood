@@ -41,7 +41,6 @@ class MainMenuActivity : AppCompatActivity() {
                 R.id.navigation_home -> replaceFragment(HomeFragment())
                 R.id.navigation_menu -> replaceFragment(FoodFragment())
                 R.id.navigation_smartmenu -> replaceFragment(BasketFragment())
-                R.id.navigation_favorite -> replaceFragment(CartFragment())
             }
             true
         }

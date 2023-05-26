@@ -1,6 +1,6 @@
 [
   {
-    "_id": "638b4d92fdcb31f96faba2e2",
+    "_id": "1",
     "strMeal": "Sancocho de costilla",
     "strCategory": "Sancochos",
     "strArea": "Colombia",
@@ -51,7 +51,7 @@
     "strImageSource": null
   },
   {
-    "_id": "638b4bc0fdcb31f96faba2dd",
+    "_id": "2",
     "strMeal": "Arepa e huevo",
     "strCategory": "Desayunos",
     "strArea": "Luruaco",
@@ -102,7 +102,7 @@
     "strImageSource": null
   },
   {
-    "_id": "638b4bc0fdcb31f96faba2de",
+    "_id": "3",
     "strMeal": "Posta Cartagenera",
     "strCategory": "Almuezos",
     "strArea": "Cartagena",
@@ -153,7 +153,7 @@
     "strImageSource": null
   },
   {
-    "_id": "638b4d92fdcb31f96faba2ef",
+    "_id": "4",
     "strMeal": "Lasagna",
     "strCategory": "Cenas",
     "strArea": "Italia",

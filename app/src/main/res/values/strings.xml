@@ -65,4 +65,7 @@
     <string name="certificateReccette">Receta certificada</string>
     <string name="reccette_expert">Receta</string>
     <string name="add">Agregar</string>
+    <string name="submit">Terminar</string>
+    <string name="restaurantRecette">Receta de un restaurante</string>
+    <string name="recetteUser">Receta de un usuario</string>
 </resources>
