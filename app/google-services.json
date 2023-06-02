@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "347637651471",
+    "firebase_url": "https://food-mds-default-rtdb.firebaseio.com",
+    "project_id": "food-mds",
+    "storage_bucket": "food-mds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347637651471:android:06962504dc65755ed42b7a",
+        "android_client_info": {
+          "package_name": "com.example.facilRecetas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347637651471-hka5jdnj6013lhb9g72nuhm847g4u0qo.apps.googleusercontent.com",
+          "client_type": 3,
+          "android_info": {
+            "package_name": "com.example.facilRecetas",
+            "certificate_hash": "53b6bbb3fa103874b3ba995cd7af4b193619411d"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeivi2mElMbJnbAH2a5LyDeKWPMA8S6xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347637651471-hka5jdnj6013lhb9g72nuhm847g4u0qo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

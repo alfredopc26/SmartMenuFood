@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.example.facilRecetas.R
+import com.example.facilRecetas.UpdateDataActivity
 import com.example.facilRecetas.ui.main.fragment.GuidePageOneFragment
+import com.example.facilRecetas.utils.session.SessionPref
 
 
 class GuideActivity : AppCompatActivity() {
-
+    lateinit var sessionPref: SessionPref
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        sessionPref = SessionPref(this)
+        if (sessionPref.isLoggedIn()) {
+            val intent = Intent(this, UpdateDataActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide)
         val fragment = GuidePageOneFragment()
@@ -21,8 +29,7 @@ class GuideActivity : AppCompatActivity() {
 
         val skip = findViewById<TextView>(R.id.skipTV)
         skip.setOnClickListener {
-            val intent = Intent(this, MainMenuActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

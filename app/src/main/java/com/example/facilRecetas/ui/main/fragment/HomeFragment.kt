@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,8 @@ import com.example.facilRecetas.ui.main.adapter.FoodAdapter
 import com.example.facilRecetas.ui.main.view.FoodRecipeActivity
 import com.example.facilRecetas.ui.main.view.MainMenuActivity
 import com.example.facilRecetas.ui.main.view.RecetteActivity
+import com.example.facilRecetas.utils.session.SessionPref
+import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,6 +53,19 @@ class HomeFragment : Fragment() {
     private lateinit var dRecette: Recette
     private lateinit var db: DatabaseFacilRecetas
 
+    private lateinit var username: TextView
+    lateinit var usernameString : String
+    lateinit var sessionPref: SessionPref
+
+    lateinit var user : HashMap<String, String>
+
+
+
+    private lateinit var healthy: MaterialButton
+    private lateinit var noBioLL: LinearLayout
+    private lateinit var bioLL: LinearLayout
+
+    var bioCheck: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,8 +77,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navDrawerButton = view.findViewById<Button>(R.id.menu)
+        username= view.findViewById(R.id.title_username)
+        noBioLL=view.findViewById(R.id.noIsBioLL)
+        sessionPref = SessionPref(activity?.applicationContext!!)
+        user = sessionPref.getUserPref()
+        usernameString = user.get(SessionPref.USER_NAME).toString()
 
         val drawerLayout = (activity as MainMenuActivity).drawerLayout
+
+        username.text="$usernameString"
 
         initCategoryList()
         if (categoryList.isNotEmpty()) {

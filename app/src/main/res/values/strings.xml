@@ -9,7 +9,7 @@
     <string name="type_recipe">Escriba una receta</string>
     <string name="popular_categories">Categorías populares</string>
     <string name="see_all">Ver todos</string>
-    <string name="hello">Hola</string>
+    <string name="hello">Hola, </string>
     <string name="user_name">username</string>
     <string name="expertRecet">Recetas de experto</string>
     <string name="category">categorias</string>
@@ -68,4 +68,23 @@
     <string name="submit">Terminar</string>
     <string name="restaurantRecette">Receta de un restaurante</string>
     <string name="recetteUser">Receta de un usuario</string>
+    <string name="emailusertxt">Email</string>
+    <string name="PasswordTxt">Password</string>
+    <string name="loginTxt">Login</string>
+    <string name="registerTV">Registrar</string>
+    <string name="todo">Registro</string>
+    <string name="UsernameTXT">Usuario</string>
+    <string name="RepeatPasswordTxt">Repetir password</string>
+    <string name="EmailTxt">Email</string>
+    <string name="PhoneTxt">Teléfono</string>
+    <string name="create_accountBtn">Crear cuenta</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="already_account">Ya tienes una cuenta</string>
+    <string name="accueilTxt">Feed</string>
+    <string name="healthy_mode">Modo Saludable</string>
+    <string name="veganRecette">Recetas Veganas</string>
+    <string name="salade">Ensaladas</string>
+    <string name="forget_password_text">Olvide mi contraseña</string>
+    <string name="recovery_pass">Recuperar contraseña</string>
 </resources>

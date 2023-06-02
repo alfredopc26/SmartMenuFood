@@ -13,6 +13,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
@@ -26,12 +27,16 @@ import com.example.facilRecetas.data.models.Ingredients
 import com.example.facilRecetas.databinding.ActivityRecetteFormBinding
 import com.example.facilRecetas.persistence.DatabaseFacilRecetas
 import com.example.facilRecetas.persistence.RecetteEntity
+import com.example.facilRecetas.utils.session.SessionPref
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 
 class RecetteFormActivity : AppCompatActivity() {
@@ -136,10 +141,13 @@ class RecetteFormActivity : AppCompatActivity() {
 
     lateinit var idUser: String
     lateinit var username: String
+    lateinit var sessionPref: SessionPref
+    lateinit var imageUrl: String
 
     lateinit var user: HashMap<String, String>
     var inc: Int = 0
     var checkIngredients: Boolean = false
+    private lateinit var storageRef: StorageReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -149,14 +157,18 @@ class RecetteFormActivity : AppCompatActivity() {
         ingredientsTypeArray = ArrayList()
         val measureType: List<String> = Arrays.asList("Mg", "Gr", "Kg", "Ml", "Li", "Un")
         ingredientsTypeArray.addAll(measureType)
-
+        sessionPref = SessionPref(applicationContext)
+        user = sessionPref.getUserPref()
+        idUser = user.get(SessionPref.USER_ID).toString()
+        username = user.get(SessionPref.USER_NAME).toString()
+        storageRef = FirebaseStorage.getInstance().reference
 
         // Image Picker
-        addButton = findViewById(R.id.add_button)
+        addButton = findViewById(R.id.add_image)
         imgView = findViewById(R.id.imageViewRecette)
         addButton.setOnClickListener {
 
-            Log.d("TAG", "onClick: ")
+            Log.d("addButton", "onClick: pickImageFromGallery")
 
 
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -211,11 +223,46 @@ class RecetteFormActivity : AppCompatActivity() {
     }
 
     private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
+        Log.d("addButton", "onClick: pickImageFromGallery")
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         startActivityForResult(intent, IMAGE_PICK_CODE)
 
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val imageUri = data.data!!
+
+
+            val extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(imageUri))
+            val fileName = "${FirebaseAuth.getInstance().currentUser?.uid}.${extension}"
+            val fileRef = storageRef.child("images/$fileName")
+            val uploadTask = fileRef.putFile(imageUri)
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    throw task.exception!!
+                }
+                fileRef.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    imageUrl = downloadUri.toString()
+                } else {
+                    val imageRef = storageRef.child("default_fondo.jpg")
+                    imageRef.downloadUrl.addOnSuccessListener { uri ->
+                        imageUrl = uri.toString()
+                    }.addOnFailureListener { exception ->
+                        if (requestCode == IMAGE_PICK_CODE && resultCode == RESULT_OK && data != null && data.data != null) {
+                            imageUrl = data.data.toString()!!
+
+                            // Utiliza la selectedImageUri según tus necesidades
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun loadCategoryList() {
@@ -294,7 +341,7 @@ class RecetteFormActivity : AppCompatActivity() {
         t20 = findViewById(R.id.MeasureTxtType20)
 
         imgView = findViewById(R.id.imageViewRecette)
-        addButton = findViewById(R.id.add_button)
+        addButton = findViewById(R.id.add_image)
         submitButton = findViewById(R.id.submit_button)
         titreInput = findViewById(R.id.titreEditText)
         descInput = findViewById(R.id.descEditText)
@@ -426,8 +473,9 @@ class RecetteFormActivity : AppCompatActivity() {
                     Integer.parseInt(dureeInput.text.toString()),
                     Integer.parseInt(personInput.text.toString()),
                     difficultyDropDown.text.toString(),
-                    "pruebitas",
-                    "Prubitas_dev",
+                    idUser,
+                    username,
+                    imageUrl,
                     tv1.text.toString(),
                     tv2.text.toString(),
                     tv3.text.toString(),
@@ -552,33 +600,6 @@ class RecetteFormActivity : AppCompatActivity() {
 
 
     }
-//    private fun retrofitUploadImage(imageUri: Uri) {
-//        val file = File(imageUri.path)
-//        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//        val body = MultipartBody.Part.createFormData("myFile", file.name, requestFile)
-//        val retIn = RetrofitInstance.getRetrofitInstance().create(RestApiService::class.java)
-//        val call = retIn.uploadImage(body)
-//        call.enqueue(object : Callback<ResponseBody> {
-//            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                if (response.isSuccessful) {
-//                    Toast.makeText(this@RecetteFormActivity, "Image Uploaded", Toast.LENGTH_SHORT)
-//                        .show()
-//                } else {
-//                    Toast.makeText(this@RecetteFormActivity, "Image Not Uploaded", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                Toast.makeText(this@RecetteFormActivity, "Image Not Uploaded", Toast.LENGTH_SHORT)
-//                    .show()
-//            }
-//        })
-//
-//
-//
-//    }
-
 
     private fun checkDrop(a:String,b:ArrayList<String>):Boolean
     {
@@ -670,6 +691,7 @@ class RecetteFormActivity : AppCompatActivity() {
         difficulty: String,
         user: String,
         username:String,
+        image: String,
         strIngredient1: String,strIngredient2: String,strIngredient3: String,strIngredient4: String,strIngredient5: String,strIngredient6: String,strIngredient7: String,strIngredient8: String,strIngredient9: String,strIngredient10: String,strIngredient11: String,strIngredient12: String,strIngredient13: String,strIngredient14: String,strIngredient15: String,strIngredient16: String,strIngredient17: String,strIngredient18: String,strIngredient19: String,strIngredient20: String,
         strMeasure1: String,strMeasure2: String,strMeasure3: String,strMeasure4: String,strMeasure5: String,strMeasure6: String,strMeasure7: String,strMeasure8: String,strMeasure9: String,strMeasure10: String,strMeasure11: String,strMeasure12: String,strMeasure13: String,strMeasure14: String,strMeasure15: String,strMeasure16: String,strMeasure17: String,strMeasure18: String,strMeasure19: String,strMeasure20: String
 
@@ -678,7 +700,6 @@ class RecetteFormActivity : AppCompatActivity() {
 
         val retIn =  DatabaseFacilRecetas.getInstance(applicationContext).recetteDao()
         val recetteCount = retIn.getAllRecette().size
-        val image =  "test"+Random()
         val recetteInfo = RecetteEntity(
             (recetteCount + 1).toString(),
             name,
@@ -692,7 +713,7 @@ class RecetteFormActivity : AppCompatActivity() {
             duration,
             person,
             difficulty,
-            "usertest",
+            username,
             ArrayList<String>(),
             ArrayList<String>(),
             ArrayList<String>(),
@@ -735,26 +756,3 @@ class RecetteFormActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-
-
-//        ingredientInput1=findViewById(R.id.ingredientInput1)
-//        ingredientInput2=findViewById(R.id.ingredientInput2)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput4=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
-//        ingredientInput3=findViewById(R.id.ingredientInput3)
